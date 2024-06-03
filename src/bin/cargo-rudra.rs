@@ -344,7 +344,7 @@ fn in_cargo_rudra() {
     let verbose = has_arg_flag("-v");
 
     // Some basic sanity checks
-    test_sysroot_consistency();
+    // test_sysroot_consistency();
 
     // Now run the command.
     let packages = cargo_package();
@@ -365,7 +365,7 @@ fn in_cargo_rudra() {
             // Now we run `cargo check $FLAGS $ARGS`, giving the user the
             // change to add additional arguments. `FLAGS` is set to identify
             // this target. The user gets to control what gets actually passed to Rudra.
-            let mut cmd = Command::new("cargo");
+            let mut cmd = Command::new("/home/lzw/.cargo/bin/cargo");
             cmd.arg("check");
 
             cmd.arg("-p")
@@ -386,7 +386,8 @@ fn in_cargo_rudra() {
                     // There can be only one lib in a crate.
                     cmd.arg("--lib");
                     // Clean the result to disable Cargo's freshness check
-                    clean_package(&package.name, manifest_path.as_ref());
+                    // clean_package(&package.name, manifest_path.as_ref());
+                    continue;
                 }
                 TargetKind::Unknown => {
                     warn!(
@@ -407,7 +408,7 @@ fn in_cargo_rudra() {
                 if arg == "--" {
                     break;
                 }
-                cmd.arg(arg);
+                // cmd.arg(arg);
             }
 
             // We want to always run `cargo` with `--target`. This later helps us detect
@@ -452,7 +453,10 @@ fn in_cargo_rudra() {
                 eprintln!("+ {:?}", cmd);
             }
 
-            progress_info!("Running rudra{:?} for target {}:{}", cmd.get_program(), kind, &target.name);
+            cmd.current_dir("/data/lzw/rust_projects/movefmt");
+            // cmd = Command::new("/home/lzw/.cargo/bin/cargo");
+            // cmd.arg("check");
+            progress_info!("Running rudra {:?} for target {}:{}", cmd, kind, &target.name);
             let mut child = cmd.spawn().expect("could not run cargo check");
             // 1 hour timeout
             match child

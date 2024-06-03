@@ -20,3 +20,7 @@ fn insertion_sort_unsafe<T: Ord>(arr: &mut [T]) {
         }
     }
 }
+
+fn main() {
+
+}

@@ -145,28 +145,32 @@ impl<'tcx> RudraCtxtOwner<'tcx> {
                     target,
                     ..
                 } => {
-                    // let cleanup = cleanup.clone().map(|block| block.index());
-                    let destination = Some((destination.clone(), target.unwrap().index()));
-
-                    if let mir::Operand::Constant(box func) = func_operand {
-                        let func_ty = func.ty();
-                        match func_ty.kind() {
-                            TyKind::FnDef(def_id, callee_substs) => {
-                                ir::TerminatorKind::StaticCall {
-                                    callee_did: def_id.clone(),
-                                    callee_substs,
-                                    args: args.clone(),
-                                    // cleanup,
-                                    destination,
-                                }
-                            }
-                            TyKind::FnPtr(_) => ir::TerminatorKind::FnPtr {
-                                value: func.const_.clone(),
-                            },
-                            _ => panic!("invalid callee of type {:?}", func_ty),
-                        }
-                    } else {
+                    if target.is_none() {
                         ir::TerminatorKind::Unimplemented("non-constant function call".into())
+                    } else {
+                        // let cleanup = cleanup.clone().map(|block| block.index());
+                        let destination = Some((destination.clone(), target.unwrap().index()));
+
+                        if let mir::Operand::Constant(box func) = func_operand {
+                            let func_ty = func.ty();
+                            match func_ty.kind() {
+                                TyKind::FnDef(def_id, callee_substs) => {
+                                    ir::TerminatorKind::StaticCall {
+                                        callee_did: def_id.clone(),
+                                        callee_substs,
+                                        args: args.clone(),
+                                        // cleanup,
+                                        destination,
+                                    }
+                                }
+                                TyKind::FnPtr(_) => ir::TerminatorKind::FnPtr {
+                                    value: func.const_.clone(),
+                                },
+                                _ => panic!("invalid callee of type {:?}", func_ty),
+                            }
+                        } else {
+                            ir::TerminatorKind::Unimplemented("non-constant function call".into())
+                        }
                     }
                 }
                 TerminatorKind::Drop { .. } => {

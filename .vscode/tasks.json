@@ -1,0 +1,19 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Install",
+        "group": "build",
+        "type": "shell",
+        "command": "./install-debug.sh",
+        "problemMatcher": "$rustc"
+      },  
+      {
+        "label": "Build",
+        "type": "shell",
+        "command": "source /data/lzw/rust_projects/osp/Rudra/ci/env.sh",
+        "dependsOn": ["Install"],
+        "problemMatcher": "$rustc"
+      },
+    ]
+}

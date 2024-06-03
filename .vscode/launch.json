@@ -1,0 +1,31 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug",
+            "program": "${workspaceFolder}/target/debug/cargo-rudra",
+            // "args": ["/data/lzw/rust_projects/movefmt/"],
+            // "args": ["tests/panic_safety/insertion_sort.rs"],
+            "args": [
+                "rudra", 
+                "--sysroot /home/lzw/.rustup/toolchains/nightly-2023-11-23-x86_64-unknown-linux-gnu",
+                "--manifest-path",
+                "/data/lzw/rust_projects/movefmt/Cargo.toml",
+                // "/data/lzw/rust_projects/osp/Rudra/Cargo.toml",
+                "-v"
+            ],
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "Build",
+            "env": {
+                "LD_LIBRARY_PATH": "/usr/lib/x86_64-linux-gnu/::/home/lzw/.rustup/toolchains/nightly-2023-07-01-x86_64-unknown-linux-gnu/lib/libtest-8128660eb0ebac62.so:/usr/lib/x86_64-linux-gnu/::/home/lzw/.rustup/toolchains/nightly-2023-11-23-x86_64-unknown-linux-gnu/lib",
+                "CARGO": "/home/lzw/.cargo/bin/cargo"
+            },
+            "sourceLanguages": ["rust"]
+        }
+    ]
+}
