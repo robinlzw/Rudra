@@ -11,3 +11,8 @@ struct Atom(usize);
 
 unsafe impl Sync for Atom {}
 unsafe impl Send for Atom {}
+
+
+fn main() {
+
+}

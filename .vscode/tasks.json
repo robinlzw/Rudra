@@ -5,14 +5,14 @@
         "label": "Install",
         "group": "build",
         "type": "shell",
-        "command": "./install-debug.sh",
+        "command": "bash /data/lzw/rust_projects/osp/Rudra/install-debug.sh",
         "problemMatcher": "$rustc"
       },  
       {
         "label": "Build",
         "type": "shell",
         "command": "source /data/lzw/rust_projects/osp/Rudra/ci/env.sh",
-        "dependsOn": ["Install"],
+        // "dependsOn": ["Install"],
         "problemMatcher": "$rustc"
       },
     ]

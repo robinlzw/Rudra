@@ -40,6 +40,7 @@ pub fn init_report_logger(report_logger: Box<dyn ReportLogger>) -> FlushHandle {
 }
 
 pub fn default_report_logger() -> Box<dyn ReportLogger> {
+    eprintln!("env::var_os(RUDRA_REPORT_PATH) = {:?}", env::var_os("RUDRA_REPORT_PATH"));
     match env::var_os("RUDRA_REPORT_PATH") {
         Some(val) => Box::new(FileLogger::new(val)),
         None => Box::new(StderrLogger::new()),
@@ -47,6 +48,7 @@ pub fn default_report_logger() -> Box<dyn ReportLogger> {
 }
 
 pub fn rudra_report(report: Report) {
+    eprintln!("lll report = {:?}", serde_json::to_string(&report));
     REPORT_LOGGER.get().unwrap().log(report);
 }
 

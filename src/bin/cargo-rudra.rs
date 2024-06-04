@@ -386,8 +386,8 @@ fn in_cargo_rudra() {
                     // There can be only one lib in a crate.
                     cmd.arg("--lib");
                     // Clean the result to disable Cargo's freshness check
-                    // clean_package(&package.name, manifest_path.as_ref());
-                    continue;
+                    clean_package(&package.name, manifest_path.as_ref());
+                    // continue;
                 }
                 TargetKind::Unknown => {
                     warn!(
@@ -453,7 +453,7 @@ fn in_cargo_rudra() {
                 eprintln!("+ {:?}", cmd);
             }
 
-            cmd.current_dir("/data/lzw/rust_projects/movefmt");
+            // cmd.current_dir("/data/lzw/rust_projects/movefmt");
             // cmd = Command::new("/home/lzw/.cargo/bin/cargo");
             // cmd.arg("check");
             progress_info!("Running rudra {:?} for target {}:{}", cmd, kind, &target.name);
